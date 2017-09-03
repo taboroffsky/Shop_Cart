@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Shopping Cart</h2>
+@if (Session["Cart"] != null)
+{
+    <div class="main-content"> 
+        @using (Html.BeginForm("UpdateCart", "ShoppingCart", FormMethod.Post))
+        {
+
+        <table class="shopping-cart">
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Sub Total</th>
+            </tr>
+
+
+            @foreach (var item in (List<Shop_Cart.Models.Cart>)Session["Cart"])
+            {
+                <tr>
+                    <td>@Html.ActionLink(item.Product.ProductName, "Details", "Products", new { id = item.Product.ProductId }, new {@class= "delete-shopping" })</td>
+                    <td>@String.Format("{0:N0}", item.Product.Price)</td>
+                    <td>
+                        <input type="text" name="quantity" id="quantity" value="@item.Quantity" />
+                        &nbsp; <span id="errmsg"></span>
+                    </td>
+                    <td>@(String.Format("{0:N0}", Convert.ToInt32(item.Product.Price) * item.Quantity))</td>
+                    <td>
+                        @Html.ActionLink("Delete", "Delete", "ShoppingCart", new { id = item.Product.ProductId },
+new { onclick = "return confirm('are you sure?');", @class = "delete-shopping" })
+                </td>
+            </tr>
+
+            }
+                                }
+
+
+            <tr>
+                <td colspan="3" class="total-price-text">Total:</td>
+                <td class="total-price-text">
+                    @{
+                        int total = 0;
+
+                        if (Session["Cart"] != null)
+                        {
+                            List<Shop_Cart.Models.Cart> list = (List<Shop_Cart.Models.Cart>)Session["Cart"];
+
+                            foreach (Shop_Cart.Models.Cart item in list)
+                            {
+                                total += Convert.ToInt32(item.Product.Price) * item.Quantity;
+                        }
+                    }
+                }
+                @total $
+            </td>
+        </tr>
+
+    </table>
+
+    <br />
+    @Html.ActionLink("Continue Shopping", "Index", "Products",null, new { @class = "continue-shopping" })
+    
+        <input type="submit" value="Update Cart" class="update-shopping" />
+
+        @Html.ActionLink("CheckOut", "CheckOut", "ShoppingCart", null, new { @class = "continue-shopping" })
+                        }
+</div>
+}@*endif*@
+                            
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        //called when kei is pressed in textbox
+        $("#quantity").keypress(function(e){
+                                    //check if the letter is a digit
+                                    if (e.which != 8 && e.which != 0 && e.which < 48 || e.which > 57) {
+                $("#errmsg").html("Enter digits only").show().fadeOut("slow");
+                                        return false;
+                                    }
+                                });
+                            });
+</script>

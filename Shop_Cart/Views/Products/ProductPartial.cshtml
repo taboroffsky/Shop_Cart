@@ -1,0 +1,35 @@
+﻿@using PagedList;
+@using PagedList.Mvc
+@model PagedList.IPagedList<Shop_Cart.Models.Product>
+
+
+
+@{ foreach (var item in Model)
+    {
+        <div class="main-content">
+            <div class="content-image">
+            @*<a href="#"><img src="@Url.Content("~/Content/Images/"+item.Image)"/></a>*@
+                <a href="@Url.Action("Details", "Products", new { id= item.ProductId},null)">
+                    <img src="@Url.Content("~/Content/Images/"+item.Image)" />
+                </a>
+                </div><!--content-image-->
+            <div class="content-title">
+                @*<a href="#">@item.ProductName</a>*@
+                @Html.ActionLink(item.ProductName, "Details", "Products", new { id= item.ProductId},null)
+                </div><!--content-title-->
+            <div class="content-price">Price: $@String.Format("{0:N0}",item.Price)</div><!--content-price-->
+            <div class="content-price">
+                @Html.ActionLink("Add to Cart", "OrderNow", "ShoppingCart", new { id = item.ProductId }, null)
+                </div><!--content-price-->
+        </div><!--main-content-->
+    }
+
+}
+
+
+<div class="clear"></div>
+Page @(Model.PageCount< Model.PageNumber ? 1 : Model.PageNumber / Model.PageCount) / @Model.PageCount
+
+<div class="div-pagination">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page}))
+</div>

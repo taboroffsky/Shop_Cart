@@ -1,0 +1,114 @@
+﻿@model Shop_Cart.Models.Order
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Check Out Shopping Cart</h2>
+@if (Session["Cart"] != null)
+{
+    <div class="main-content">        
+
+            <table class="shopping-cart">
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Sub Total</th>
+                </tr>
+
+
+                @foreach (var item in (List<Shop_Cart.Models.Cart>)Session["Cart"])
+                {
+                    <tr>
+                        <td>@Html.ActionLink(item.Product.ProductName, "Details", "Products", new { id = item.Product.ProductId }, new { @class = "delete-shopping" })</td>
+                        <td>$@String.Format("{0:N0}", item.Product.Price)</td>
+                        <td>
+                            <input type="text" name="quantity" id="quantity" value="@item.Quantity" readonly />
+                            &nbsp; <span id="errmsg"></span>
+                        </td>
+                        <td>$@(String.Format("{0:N0}", Convert.ToInt32(item.Product.Price) * item.Quantity))</td>
+                       
+                    </tr>
+
+                }
+                }
+
+
+                <tr>
+                    <td colspan="3" class="total-price-text">Total:</td>
+                    <td class="total-price-text">
+                        @{
+                            int total = 0;
+
+                            if (Session["Cart"] != null)
+                            {
+                                List<Shop_Cart.Models.Cart> list = (List<Shop_Cart.Models.Cart>)Session["Cart"];
+
+                                foreach (Shop_Cart.Models.Cart item in list)
+                                {
+                                    total += Convert.ToInt32(item.Product.Price) * item.Quantity;
+                                }
+                            }
+                        }
+                        $@total
+                    </td>
+                </tr>
+
+            </table>            
+        
+    </div>
+}@*endif*@
+
+<br />
+<br/>
+@using (Html.BeginForm("ProcessOrder", "ShoppingCart", FormMethod.Post, new { id = "customer-form" }))
+{
+
+
+    <table>
+    <tr>
+        <td colspan="3" style="text-align:center;"><b>Customer`s Information</b></td>        
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(m => m.CustomerName)</td>
+        <td>@Html.EditorFor(m => m.CustomerName)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(m => m.CustomerPhone)</td>
+        <td>@Html.EditorFor(m => m.CustomerPhone)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(m => m.CustomerEmail)</td>
+        <td>@Html.EditorFor(m => m.CustomerEmail)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(m => m.CustomerAdress)</td>
+        <td>@Html.EditorFor(m => m.CustomerAdress)</td>
+    </tr>
+    <tr>
+        <td colspan="3"><input type="submit"value="Proccess Order" class="update-shopping"/></td>
+    </tr>
+</table>
+
+
+}
+
+<script type="text/javascript">
+    $("#customer-form").validate({
+        rules: {
+            cusName: {
+                required: true
+            },
+            cusPhone: {
+                required: true
+            },
+            cusEmail: {
+                required: true
+            },
+            cusAddress: {
+                required: true
+            }
+        }
+    });
+</script>

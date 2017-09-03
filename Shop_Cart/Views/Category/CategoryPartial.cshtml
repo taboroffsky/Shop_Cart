@@ -1,0 +1,42 @@
+﻿@model List<Shop_Cart.Models.Category>
+
+<ul>
+
+    @{foreach (var item in Model)
+        {
+            @*<li>@Html.ActionLink(item.Name, "Index", "Products", new { category = item.CategoryId }, new { name = item.Name })</li>*@
+            <li><a href="#" name="@item.Name">@item.Name</a></li>
+        }
+    }
+
+</ul>
+
+@{foreach (var item in Model)
+    {
+<script>
+    $('@item.Name').on("click", function (e) {
+        e.preventDefault();
+        alert(@item.Name);
+    });
+</script>
+
+
+        @*<script>
+            $('@item.Name').click(function () {
+
+                alert('clicked');
+
+                $.ajax({
+                    url: @Url.Action("ProductPartial","Products", new {category = item.CategoryId }),
+                    type: "GET",
+                    success: function (response) {
+                        $('#major').innetHtml = response;
+                    }
+                });
+
+            });
+
+
+        </script>*@
+    }
+ }

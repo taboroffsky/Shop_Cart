@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c49b8c0d221142f7998df2fbbf967f2c" Name="Diagram1">
+        <EntityTypeShape EntityType="ShopCartDBModel.Category" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopCartDBModel.Color" Width="1.5" PointX="3.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopCartDBModel.Model" Width="1.5" PointX="3.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopCartDBModel.News" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopCartDBModel.Product" Width="1.5" PointX="6" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopCartDBModel.Storage" Width="1.5" PointX="3.75" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopCartDBModel.User" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <AssociationConnector Association="ShopCartDBModel.FK__Product__Categor__1DE57479" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopCartDBModel.FK__Product__ColorId__1ED998B2" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopCartDBModel.FK__Product__ModelId__1FCDBCEB" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopCartDBModel.FK__News__UserId__1273C1CD" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopCartDBModel.FK__Product__Storage__20C1E124" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopCartDBModel.FK__Product__UserId__1CF15040" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ShopCartDBModel.Order" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="ShopCartDBModel.OrderDetail" Width="1.5" PointX="8.25" PointY="6.125" />
+        <AssociationConnector Association="ShopCartDBModel.FK__OrderDeta__Order__38996AB5" />
+        <AssociationConnector Association="ShopCartDBModel.FK__OrderDeta__Produ__398D8EEE" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
