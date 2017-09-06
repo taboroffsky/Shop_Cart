@@ -24,6 +24,9 @@ namespace Shop_Cart.Controllers
             var pageSize = 10;
             dynamic products;
 
+            bool ajax = Request.IsAjaxRequest();
+
+
             if (category == null)
                 products = db.Products.ToList().ToPagedList(pageNumber, pageSize);
             else

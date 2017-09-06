@@ -4,23 +4,38 @@
 
     @{foreach (var item in Model)
         {
-            @*<li>@Html.ActionLink(item.Name, "Index", "Products", new { category = item.CategoryId }, new { name = item.Name })</li>*@
-            <li><a href="#" name="@item.Name">@item.Name</a></li>
+           @*<li>@Html.ActionLink(item.Name, "Index", "Products", new { category = item.CategoryId }, new { name = item.Name })</li>*@
+           @* <li><a href="#" name="@item.Name" onclick="@{string.Concat(item.Name.ToString(), "click");}">@item.Name</a></li>*@
+           @*<li>  @Html.ActionLink(item.Name, null, null, new { onclick = string.Format("runajax({0})", item.CategoryId), name = item.Name, href = "#" })</li>*@
+            <li>@Ajax.ActionLink(@item.Name, "ProductPartial", "Products",
+            new { category = item.CategoryId },
+            new AjaxOptions()
+            {
+                HttpMethod = "GET",
+                InsertionMode = InsertionMode.Replace,
+                UpdateTargetId = "major"
+            })</li>
         }
     }
 
 </ul>
 
-@{foreach (var item in Model)
-    {
+
 <script>
-    $('@item.Name').on("click", function (e) {
-        e.preventDefault();
-        alert(@item.Name);
-    });
+    function runajax(id) {
+        $.ajax({
+            url: "Products/ProductPartial",
+            type: "GET",
+            data: "category=" + id,
+            success: function (response) {                
+                $('#major').innerHtml = response;
+                alert('html done');
+            }
+        });
+    }
 </script>
-
-
+        
+<div id="breaker"></div>
         @*<script>
             $('@item.Name').click(function () {
 
@@ -38,5 +53,5 @@
 
 
         </script>*@
-    }
- }
+    
+ 

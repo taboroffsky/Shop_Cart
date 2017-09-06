@@ -11,6 +11,7 @@
     <link href="~/Content/MyStyleSheet.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <title>_Default</title>
 </head>
 <body>
@@ -50,7 +51,7 @@
                @Html.Action("CategoryPartial","Category")
             </div><!--category-list-->
         </div><!--div-left-->
-        <div class="div-main">
+        <div class="div-main" id="div-main">
            
             
                 @RenderBody()
